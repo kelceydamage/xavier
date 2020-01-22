@@ -300,7 +300,7 @@ public:
         std::string package;
         char idx = ((port<<4) + device) & 0xff;
         unsigned char bytes[] = {
-            header1, header2, 0x04, idx, 0x01, 0x01, 0x05
+            header1, header2, 0x04, idx, 0x01, 0x01, port
         };
         this->serial->writeString(this->char_to_string(bytes));
     }
