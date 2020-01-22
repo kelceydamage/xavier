@@ -201,7 +201,12 @@ public:
      * \throws boost::system::system_err
      */
     {
-        //Reading data char by char, code is optimized for simplicity, not speed
+        /*
+         * Reading data char by char, code is optimized for simplicity, not speed
+         * Will update to a streaming method that does not block. Streams can be
+         * organized by sensor id, so continual background readings can be placed
+         * buffers.
+         */
         char c;
         std::string result;
         int count = 0;
