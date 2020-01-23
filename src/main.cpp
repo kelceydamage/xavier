@@ -120,6 +120,15 @@ writeSerial(command_index);
 sendFloat(value);
 
 package: {h1, h2, 0, 2, v0, v1, v2, v3}
+
+if(Compass.getPort() != port)
+{
+    Compass.reset(port);
+    Compass.setpin(Compass.pin1(),Compass.pin2());
+}
+double CompassAngle;
+CompassAngle = Compass.getAngle();
+sendFloat((float)CompassAngle);
 */
 
 uint8_t command_index = 0; // uint idx
@@ -133,6 +142,9 @@ int main(int argc, char* argv[])
         Sensor ultrasonic_sensor(
             &driver, devices::ultrasonic_sensor, ports::sensor4
         );
+        Sensor compass(
+            &driver, devices::compass, ports::sensor3
+        );
 
         std::cout << std::endl;
 
@@ -140,23 +152,23 @@ int main(int argc, char* argv[])
         std::cout << "Connecting to: " << config::terminal << " @ ";
         std::cout << "0.0087 ms" << std::endl;
 
-        std::cout << "Writing ... \n";
+        std::cout << "Forward ... \n";
         movement.forward(255, 1);
 
-        std::cout << "Writing ... \n";
+        std::cout << "Stop ... \n";
         movement.stop(1);
 
-        std::cout << "Writing ... \n";
+        std::cout << "Reverse ... \n";
         movement.reverse(255, 1);
 
-        std::cout << "Writing ... \n";
+        std::cout << "Stop ... \n";
         movement.stop(1);
 
-        std::cout << "Reading ...\n";
         int n = 10;
         while (n > 0)
         {
             Debug::print_sensor_reading(ultrasonic_sensor.read());
+            Debug::print_sensor_reading(compass.read());
             n--;
         }
         std::cout << "Done" << std::endl;

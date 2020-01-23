@@ -93,10 +93,10 @@ std::string MegapiDriver::char_to_string(byte *bytes)
     for (int i = 0; i < bytes[2] + 3; i++)
     {
         byte n = bytes[i];
-        std::cout << (int)n << " ";
+        //std::cout << (int)n << " ";
         string.push_back(n);
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
     return string;
 }
 

@@ -11,6 +11,9 @@ int main(int argc, char* argv[])
         Sensor ultrasonic_sensor(
             &driver, devices::ultrasonic_sensor, ports::sensor4
         );
+        Sensor compass(
+            &driver, devices::compass, ports::sensor3
+        );
 
         movement.forward(255, 1);
 
@@ -24,6 +27,7 @@ int main(int argc, char* argv[])
         while (n > 0)
         {
             Debug::print_sensor_reading(ultrasonic_sensor.read());
+            Debug::print_sensor_reading(compass.read());
             n--;
         }
 

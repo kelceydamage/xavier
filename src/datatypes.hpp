@@ -85,6 +85,7 @@ namespace devices
     // Devices:
     constexpr int ultrasonic_sensor = 0x01; // 1
     constexpr int motor = 0x0a; // 10
+    constexpr int compass = 0x1a; // 26
 }
 
 #endif /* COMMON_STRUCTURES */
