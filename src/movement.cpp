@@ -18,6 +18,8 @@
 
 #include <iostream>
 #include <iomanip>
+#include <thread>         // std::this_thread::sleep_for
+#include <chrono> 
 #include "datatypes.hpp"
 #include "movement.hpp"
 
@@ -27,22 +29,24 @@ Movement::Movement(Driver *driver)
     this->driver = driver;
 }
 
-void Movement::forward() 
+void Movement::execute(short int speed, int time)
 {
-    std::cout << "running motor" << std::endl;
-    this->driver->run_dc_motor(ports::motor1a, 3000);
-    this->driver->run_dc_motor(ports::motor2a, 3000);
+    this->driver->run_dc_motor(ports::motor1a, speed);
+    this->driver->run_dc_motor(ports::motor2a, speed);
+    std::this_thread::sleep_for(std::chrono::seconds(time));
 }
 
-void Movement::stop() 
+void Movement::forward(short int speed, int time) 
 {
-    std::cout << "stopping motor" << std::endl;
-    this->driver->run_dc_motor(ports::motor1a, 0);
-    this->driver->run_dc_motor(ports::motor2a, 0);
+    this->execute(speed, time);
 }
 
-void Movement::reverse() 
+void Movement::stop(int time) 
 {
-    this->driver->run_dc_motor(ports::motor1a, -3000);
-    this->driver->run_dc_motor(ports::motor2a, -3000);
+    this->execute(0, time);
+}
+
+void Movement::reverse(short int speed, int time) 
+{
+    this->execute(-speed, time);
 }

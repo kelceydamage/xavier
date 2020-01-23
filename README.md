@@ -12,16 +12,13 @@ int main(int argc, char* argv[])
             &driver, devices::ultrasonic_sensor, ports::sensor4
         );
 
-        movement.forward();
+        movement.forward(3000, 1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        movement.stop();
+        movement.stop(1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        movement.reverse();
+        movement.reverse(3000, 1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
-        movement.stop();
+        movement.stop(1);
 
         int n = 10;
         while (n > 0)
@@ -37,5 +34,14 @@ int main(int argc, char* argv[])
         std::cout << "Error: " << e.what() << std::endl;
         return 1;
     }
+}
+```
+
+# Configuration
+```cpp
+namespace config
+{
+    int baud_rate = 115200;
+    std::string terminal = "/dev/ttyTHS0";
 }
 ```

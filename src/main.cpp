@@ -18,8 +18,6 @@
 
 #include <boost/asio.hpp>
 #include <iostream>
-#include <thread>         // std::this_thread::sleep_for
-#include <chrono> 
 #include "debug.hpp"
 #include "megapi.hpp"
 #include "config.hpp"
@@ -143,21 +141,17 @@ int main(int argc, char* argv[])
         std::cout << "0.0087 ms" << std::endl;
 
         std::cout << "Writing ... \n";
-        movement.forward();
+        movement.forward(3000, 1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Writing ... \n";
-        movement.stop();
+        movement.stop(1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Writing ... \n";
-        movement.reverse();
+        movement.reverse(3000, 1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Writing ... \n";
-        movement.stop();
+        movement.stop(1);
 
-        std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Reading ...\n";
         int n = 10;
         while (n > 0)

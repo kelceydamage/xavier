@@ -24,10 +24,11 @@ class Movement
 {
 public:
     Movement(Driver *driver);
-    void forward();
-    void stop();
-    void reverse();
+    void forward(short int speed, int time);
+    void stop(int time);
+    void reverse(short int speed, int time);
 
 private:
     Driver *driver;
+    void Movement::execute(short int speed, int time);
 };
