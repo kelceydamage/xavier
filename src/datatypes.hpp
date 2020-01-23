@@ -83,8 +83,10 @@ namespace actions
 namespace devices
 {
     // Devices:
+    // Outputs distance in (cm)
     constexpr int ultrasonic_sensor = 0x01; // 1
     constexpr int motor = 0x0a; // 10
+    // Outputs distance as angle (degree)
     constexpr int compass = 0x1a; // 26
 }
 
