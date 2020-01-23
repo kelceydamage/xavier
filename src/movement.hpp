@@ -30,5 +30,5 @@ public:
 
 private:
     Driver *driver;
-    void Movement::execute(short int speed, int time);
+    void execute(short int speed, int time);
 };

@@ -12,11 +12,11 @@ int main(int argc, char* argv[])
             &driver, devices::ultrasonic_sensor, ports::sensor4
         );
 
-        movement.forward(3000, 1);
+        movement.forward(255, 1);
 
         movement.stop(1);
 
-        movement.reverse(3000, 1);
+        movement.reverse(255, 1);
 
         movement.stop(1);
 

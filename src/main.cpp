@@ -141,13 +141,13 @@ int main(int argc, char* argv[])
         std::cout << "0.0087 ms" << std::endl;
 
         std::cout << "Writing ... \n";
-        movement.forward(3000, 1);
+        movement.forward(255, 1);
 
         std::cout << "Writing ... \n";
         movement.stop(1);
 
         std::cout << "Writing ... \n";
-        movement.reverse(3000, 1);
+        movement.reverse(255, 1);
 
         std::cout << "Writing ... \n";
         movement.stop(1);
