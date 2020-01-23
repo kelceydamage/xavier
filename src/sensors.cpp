@@ -18,7 +18,7 @@
 
 #include <iostream>
 #include <iomanip>
-#include "datatypes.hpp"
+#include "platform/datatypes.hpp"
 #include "sensors.hpp"
 
 

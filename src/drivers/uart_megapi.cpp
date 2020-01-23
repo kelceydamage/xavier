@@ -19,8 +19,8 @@
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
-#include "datatypes.hpp"
-#include "megapi.hpp"
+#include "../platform/datatypes.hpp"
+#include "uart_megapi.hpp"
 
 
 SimpleSerial::SimpleSerial(std::string port, unsigned int baud_rate): io(), serial(io, port)

@@ -19,7 +19,7 @@
 #include <iostream>
 #include <string>
 #include <boost/asio.hpp>
-#include "datatypes.hpp"
+#include "../platform/datatypes.hpp"
 
 using byte = unsigned char;
 

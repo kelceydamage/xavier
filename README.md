@@ -1,5 +1,5 @@
 # AGX Xavier + Megapi Project
-Megapi driver, uart, i2c, general robotics controls.
+AGX Xavier + Megapi Project: megapi, uart, i2c, general robotics controls.
 
 # Example
 ```cpp
