@@ -16,12 +16,21 @@
  * limitations under the License.
  */
 
+#include <string>
+
 #ifndef COMMON_STRUCTURES
 #define COMMON_STRUCTURES
+
+using byte = unsigned char;
 
 union package {
     float float_rep;
     char byte_rep[sizeof(float)];
+};
+
+union SpeedConverter {
+    short int short_rep;
+    char byte_rep[sizeof(short int)];
 };
 
 struct SensorReading{
@@ -29,7 +38,14 @@ struct SensorReading{
     float value;
 };
 
-using byte = unsigned char;
+class Driver   // An interface class
+{
+  public:
+    Driver() {};
+    virtual ~Driver();
+    virtual void run_dc_motor(byte port, short int speed) =0;
+    virtual void read_serial_sensor(byte port, byte device, SensorReading *reading) =0;
+};
 
 namespace headers
 {

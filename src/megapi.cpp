@@ -78,6 +78,11 @@ MegapiDriver::MegapiDriver(std::string port, unsigned int baud_rate)
     this->serial = new SimpleSerial(this->port, this->baud_rate);
 }
 
+MegapiDriver::~MegapiDriver()
+{
+    delete this;
+}
+
 std::string MegapiDriver::char_to_string(byte *bytes)
 /* 
     * Convert char array of bytes to string for serial communication.
@@ -108,15 +113,18 @@ float MegapiDriver::string_bytes_to_float(std::string *bytes)
     return this->read_value.float_rep;
 }
 
-void MegapiDriver::run_dc_motor(byte port, byte speed) 
+void MegapiDriver::run_dc_motor(byte port, short int speed) 
 /**************************************************
     ff 55 len idx action device port slot data a
     0  1  2   3   4      5      6    7    8
 ***************************************************/
 /* 
     * package: {ff, 55, len, idx, action, device, port, slot, data, a}
+    * 7 & 8 are read as a 2 byte short int signed.
     */
 {
+    SpeedConverter sc;
+    sc.short_rep = speed;
     byte bytes[] = {
         headers::b1,
         headers::b2,
@@ -125,8 +133,8 @@ void MegapiDriver::run_dc_motor(byte port, byte speed)
         actions::run,
         devices::motor,
         port,
-        speed,
-        0x00
+        sc.byte_rep[0], // right to left
+        sc.byte_rep[1]  // right to left
     };
     this->serial->writeString(this->char_to_string(bytes));
 }

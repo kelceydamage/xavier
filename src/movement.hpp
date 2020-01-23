@@ -20,3 +20,14 @@
 #include <iomanip>
 #include "datatypes.hpp"
 
+class Movement
+{
+public:
+    Movement(Driver *driver);
+    void forward();
+    void stop();
+    void reverse();
+
+private:
+    Driver *driver;
+};

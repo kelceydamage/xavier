@@ -18,14 +18,23 @@
 
 #include <iostream>
 #include <iomanip>
-#include "megapi.hpp"
+#include "datatypes.hpp"
+#include "sensors.hpp"
 
 
-class Movement
+Sensor::Sensor(Driver *driver, int sensor, byte port)
 {
-public:
-    Movement(void* driver);
+    this->driver = driver;
+    this->id = sensor;
+    this->port = port;
+}
 
-    void forward();
-
-};
+SensorReading* Sensor::read()
+{
+    this->driver->read_serial_sensor(
+        this->port,
+        this->id,
+        &(this->reading)
+    );
+    return &(this->reading);
+}

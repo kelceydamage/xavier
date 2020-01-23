@@ -21,6 +21,8 @@
 #include <boost/asio.hpp>
 #include "datatypes.hpp"
 
+using byte = unsigned char;
+
 
 // Placeholder Class
 class SimpleSerial
@@ -37,18 +39,21 @@ private:
 };
 
 
-class MegapiDriver
+class MegapiDriver: public Driver
 {
 public:
+    MegapiDriver(std::string port, unsigned int baud_rate);
+    ~MegapiDriver();
+    void run_dc_motor(byte port, short int speed);
+    void read_serial_sensor(byte port, byte device, SensorReading *reading);
+
+private:
     SimpleSerial *serial;
     std::string port;
     unsigned int baud_rate;
     package read_value;
 
-    MegapiDriver(std::string port, unsigned int baud_rate);
     std::string char_to_string(byte *bytes);
     float string_bytes_to_float(std::string *bytes);
-    void run_dc_motor(byte port, byte speed);
     void get_sensor(byte port, byte device);
-    void read_serial_sensor(byte port, byte device, SensorReading *reading);
 };

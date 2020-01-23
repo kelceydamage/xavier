@@ -23,6 +23,8 @@
 #include "debug.hpp"
 #include "megapi.hpp"
 #include "config.hpp"
+#include "movement.hpp"
+#include "sensors.hpp"
 
 //
 //def motorRun(self,port,speed):
@@ -129,9 +131,11 @@ int main(int argc, char* argv[])
 {
     try {
         MegapiDriver driver(config::terminal, config::baud_rate);
-        SensorReading ultrasonic_sensor_reading;
+        Movement movement(&driver);
+        Sensor ultrasonic_sensor(
+            &driver, devices::ultrasonic_sensor, ports::sensor4
+        );
 
-        
         std::cout << std::endl;
 
         std::cout << "Starting ...\n";
@@ -139,27 +143,30 @@ int main(int argc, char* argv[])
         std::cout << "0.0087 ms" << std::endl;
 
         std::cout << "Writing ... \n";
-        driver.run_dc_motor(ports::motor1a, 255);
+        movement.forward();
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Writing ... \n";
-        driver.run_dc_motor(ports::motor1a, 0);
+        movement.stop();
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::cout << "Writing ... \n";
+        movement.reverse();
+
+        std::this_thread::sleep_for(std::chrono::seconds(1));
+        std::cout << "Writing ... \n";
+        movement.stop();
 
         std::this_thread::sleep_for(std::chrono::seconds(1));
         std::cout << "Reading ...\n";
         int n = 10;
         while (n > 0)
         {
-            driver.read_serial_sensor(
-                ports::sensor4,
-                devices::ultrasonic_sensor,
-                &ultrasonic_sensor_reading
-            );
-            Debug::print_sensor_reading(&ultrasonic_sensor_reading);
+            Debug::print_sensor_reading(ultrasonic_sensor.read());
             n--;
         }
-
         std::cout << "Done" << std::endl;
+        std::exit(0);
 
     } catch(boost::system::system_error& e)
     {
